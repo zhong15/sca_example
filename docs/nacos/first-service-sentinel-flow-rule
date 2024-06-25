@@ -1,0 +1,18 @@
+[
+  {
+    "resource": "/echo",
+    "controlBehavior": 0,
+    "count": 2,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0
+  },
+  {
+    "resource": "/getNacosConfig",
+    "controlBehavior": 0,
+    "count": 2,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0
+  }
+]

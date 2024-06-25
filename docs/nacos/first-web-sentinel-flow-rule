@@ -1,0 +1,10 @@
+[
+  {
+    "resource": "/getNacosConfig",
+    "controlBehavior": 0,
+    "count": 100,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0
+  }
+]

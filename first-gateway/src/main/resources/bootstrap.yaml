@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: gateway-app
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      server-addr: 127.0.0.1:8848
+      discovery:
+        # 默认 public
+        namespace: fe02127c-8494-474f-854c-1518370ba716
+#          server-addr: 127:0:0:1:8848
+#          access-key:
+#          secret-key:
+      config:
+        # 默认 public
+        namespace: fe02127c-8494-474f-854c-1518370ba716
+        # 默认 properties
+        file-extension: yaml
+    sentinel:
+      transport:
+        # 当前 java 里开启的端口
+        port: 8719
+        dashboard: 127.0.0.1:8080
+      datasource:
+        ds1:
+          nacos:
+            # 这里地址和用户名密码必填
+            server: 127.0.0.1:8848
+            username: nacos
+            password: nacos
+            # 默认 public
+            namespace: fe02127c-8494-474f-854c-1518370ba716
+            dataId: sentinel-gateway-api-group
+            data-type: json
+            rule-type: gw-api-group
+        ds2:
+          nacos:
+            # 这里地址和用户名密码必填
+            server: 127.0.0.1:8848
+            username: nacos
+            password: nacos
+            # 默认 public
+            namespace: fe02127c-8494-474f-854c-1518370ba716
+            dataId: sentinel-gateway
+            data-type: json
+            rule-type: gw-flow
+    gateway:
+      discovery:
+        locator:
+          enabled: true # gateway 可以从 nacos 发现微服务

@@ -1,0 +1,10 @@
+[
+  {
+    "apiName": "some_customized_api",
+    "predicateItems": [
+      {
+        "pattern": "/first-web/test/getNacosConfig"
+      }
+    ]
+  }
+]

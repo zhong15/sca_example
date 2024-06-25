@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: first-web
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      server-addr: 127.0.0.1:8848
+      discovery:
+        # 默认 public
+        namespace: fe02127c-8494-474f-854c-1518370ba716
+#          server-addr: 127:0:0:1:8848
+#          access-key:
+#          secret-key:
+      config:
+        # 默认 public
+        namespace: fe02127c-8494-474f-854c-1518370ba716
+        # 默认 properties
+        file-extension: yaml
+    loadbalancer:
+      ribbon:
+        enabled: false
+      nacos:
+        enabled: true
+    sentinel:
+      transport:
+        # 当前 java 里开启的端口
+        port: 8719
+        dashboard: 127.0.0.1:8080
+      datasource:
+        ds1:
+          nacos:
+            # 这里地址和用户名密码必填
+            server: 127.0.0.1:8848
+            username: nacos
+            password: nacos
+            # 默认 public
+            namespace: fe02127c-8494-474f-854c-1518370ba716
+            dataId: first-web-sentinel-flow-rule
+            data-type: json
+            rule-type: flow
+#  config:
+#    import:
+#      - nacos:first-web.properties?refreshEnabled=true
+feign:
+  sentinel:
+    enabled: true
