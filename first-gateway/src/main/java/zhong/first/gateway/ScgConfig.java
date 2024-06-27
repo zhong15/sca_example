@@ -49,6 +49,7 @@ public class ScgConfig {
             @Override
             public Mono<ServerResponse> handleRequest(ServerWebExchange exchange,
                                                       Throwable t) {
+                // 参考文档：https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/503
                 return ServerResponse.status(HttpStatus.SERVICE_UNAVAILABLE).contentType(MediaType.APPLICATION_JSON)
                         .body(fromValue("{\"code\": 503, \"message\": \"Service Unavailable\"}"));
             }
