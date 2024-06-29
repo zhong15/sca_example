@@ -7,3 +7,31 @@ management:
         include: "*"
     health:
       show-details: always
+spring:
+  cloud:
+    stream:
+      # 测试可以先后启动 2 个实例 --server.port=8888，广播模式第一个启动的实例的消费者会打印 2 次
+      # out是生产者，in是消费者，数字是函数参数位置，destination是队列名
+      function:
+        # @bean Consumer 方法名，不能有空格
+        definition: myMqConsumer;
+      rocketmq:
+        binder:
+          name-server: localhost:9876
+        bindings:
+          myMqProducer-out-0:
+            producer:
+              group: test-myMqProducer
+          myMqConsumer-in-0:
+            consumer:
+              # 广播模式
+              messageModel: BROADCASTING
+      bindings:
+        myMqProducer-out-0:
+          destination: ggb
+        myMqConsumer-in-0:
+          destination: ggb
+          group: test-myMqConsumer
+#logging:
+#  level:
+#    org.springframework.context.support: debug
