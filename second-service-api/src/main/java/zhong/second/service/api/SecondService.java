@@ -22,20 +22,25 @@
  * SOFTWARE.
  */
 
-package zhong.first.gateway;
+package zhong.second.service.api;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Date;
 
 /**
  * @author Zhong
  * @since 0.0.1
  */
-@EnableDiscoveryClient
-@SpringBootApplication
-public class GatewayApp {
-    public static void main(String[] args) {
-        SpringApplication.run(GatewayApp.class, args);
-    }
+@FeignClient(name = "second-service", fallback = SecondServiceFallback.class, configuration = FeignConfiguration.class)
+@RequestMapping("/hello")
+public interface SecondService {
+    @GetMapping(value = "/saveOrUpdateWeather")
+    Long saveOrUpdateWeather(@RequestParam("addressId") Long addressId,
+                             @RequestParam("address") String address,
+                             @RequestParam("day") String day,
+                             @RequestParam("weather") String weather);
 }

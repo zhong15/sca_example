@@ -22,15 +22,25 @@
  * SOFTWARE.
  */
 
-package zhong.first.web.controller;
+package zhong.first.service.utils;
+
+import com.alibaba.cloud.sentinel.rest.SentinelClientHttpResponse;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.client.ClientHttpRequestExecution;
 
 /**
  * @author Zhong
  * @since 0.0.1
  */
-public class EchoServiceFallback implements EchoService {
-    @Override
-    public String echo(String str) {
-        return "fallback";
+public class ExceptionUtils {
+    private static final Logger log = LoggerFactory.getLogger(ExceptionUtils.class);
+
+    public static SentinelClientHttpResponse handleException(HttpRequest request,
+                                                             byte[] body, ClientHttpRequestExecution execution, BlockException ex) {
+        log.warn("Oops: {}", ex.getClass().getCanonicalName());
+        return new SentinelClientHttpResponse("custom block info");
     }
 }

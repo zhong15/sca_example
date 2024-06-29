@@ -22,20 +22,17 @@
  * SOFTWARE.
  */
 
-package zhong.first.service;
+package zhong.second.service.api;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
 
 /**
  * @author Zhong
  * @since 0.0.1
  */
-@EnableDiscoveryClient
-@SpringBootApplication
-public class ServiceApp {
-    public static void main(String[] args) {
-        SpringApplication.run(ServiceApp.class, args);
+public class FeignConfiguration {
+    @Bean
+    public SecondServiceFallback echoServiceFallback() {
+        return new SecondServiceFallback();
     }
 }

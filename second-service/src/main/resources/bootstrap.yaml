@@ -1,6 +1,6 @@
 spring:
   application:
-    name: first-service
+    name: second-service
   cloud:
     nacos:
       username: nacos
@@ -36,12 +36,9 @@ spring:
             password: nacos
             # 默认 public
             namespace: fe02127c-8494-474f-854c-1518370ba716
-            dataId: first-service-sentinel-flow-rule
+            dataId: second-service-sentinel-flow-rule
             data-type: json
             rule-type: flow
 #  config:
 #    import:
 #      - nacos:first-service.properties?refreshEnabled=true
-feign:
-  sentinel:
-    enabled: true

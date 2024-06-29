@@ -22,20 +22,17 @@
  * SOFTWARE.
  */
 
-package zhong.first.web.controller;
+package zhong.first.service.api;
 
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.context.annotation.Bean;
 
 /**
  * @author Zhong
  * @since 0.0.1
  */
-@FeignClient(name = "first-service", fallback = EchoServiceFallback.class, configuration = FeignConfiguration.class)
-@RequestMapping("/hello")
-public interface EchoService {
-    @GetMapping(value = "/echo/{str}")
-    String echo(@PathVariable("str") String str);
+public class FeignConfiguration {
+    @Bean
+    public FirstServiceFallback echoServiceFallback() {
+        return new FirstServiceFallback();
+    }
 }

@@ -32,8 +32,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import zhong.first.service.api.FirstService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,13 +47,13 @@ import java.util.Map;
 @RefreshScope
 @RequestMapping("/test")
 @RestController
-public class TestController {
-    private static final Logger log = LoggerFactory.getLogger(TestController.class);
+public class FirstWebController {
+    private static final Logger log = LoggerFactory.getLogger(FirstWebController.class);
 
     @Value("${db.username}")
     private String dbUsername;
     @Autowired
-    private EchoService echoService;
+    private FirstService firstService;
     @Autowired
     private RestTemplate restTemplate;
 
@@ -59,7 +61,7 @@ public class TestController {
     @SentinelResource(value = "/getNacosConfig", fallback = "getNacosConfigFallback")
     public Map<String, String> getNacosConfig() {
 //        log.info(restTemplate.getForObject("http://first-service/hello/echo/11111", String.class));
-        log.info(echoService.echo("123"));
+        log.info(firstService.echo("123"));
         Map<String, String> map = new HashMap<>();
         map.put("dbUsername", dbUsername);
         return map;
@@ -69,5 +71,22 @@ public class TestController {
         Map<String, String> map = new HashMap<>();
         map.put("fallback", "fallback");
         return map;
+    }
+
+    /**
+     * 更新城市的天气
+     * <p>每隔一次会成功一次、失败一次
+     *
+     * @param address 测试
+     * @param day     日期，格式：yyyy-MM-dd
+     * @param weather 天气
+     * @return 1 如果成功
+     */
+    @GetMapping("/updateAddressWeather")
+    public Integer updateAddressWeather(@RequestParam(name = "address") String address,
+                                        @RequestParam(name = "day") String day,
+                                        @RequestParam(name = "weather") String weather) {
+        log.info("updateAddressWeather address: {}, day: {}, weather: {}", address, day, weather);
+        return firstService.updateAddressWeather(address, day, weather);
     }
 }

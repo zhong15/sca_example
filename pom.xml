@@ -34,6 +34,9 @@
         <module>first-web</module>
         <module>first-service</module>
         <module>first-gateway</module>
+        <module>second-service</module>
+        <module>second-service-api</module>
+        <module>first-service-api</module>
     </modules>
 
     <properties>
@@ -46,6 +49,8 @@
         <version.flatten-maven-plugin>1.1.0</version.flatten-maven-plugin>
         <version.spring-cloud-dependencies>Hoxton.SR10</version.spring-cloud-dependencies>
         <version.spring-cloud-alibaba-dependencies>2.2.9.RELEASE</version.spring-cloud-alibaba-dependencies>
+        <version.mysql-connector-java>6.0.6</version.mysql-connector-java>
+        <version.druid-spring-boot-starter>1.1.10</version.druid-spring-boot-starter>
     </properties>
 
     <parent>
@@ -100,10 +105,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <!--skip deploy (this is just a test module) -->

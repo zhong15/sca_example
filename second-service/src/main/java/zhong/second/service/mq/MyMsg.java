@@ -22,34 +22,27 @@
  * SOFTWARE.
  */
 
-package zhong.first.web;
-
-import com.alibaba.cloud.sentinel.annotation.SentinelRestTemplate;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
-import zhong.first.web.utils.ExceptionUtils;
+package zhong.second.service.mq;
 
 /**
  * @author Zhong
  * @since 0.0.1
  */
-@EnableFeignClients
-@EnableDiscoveryClient
-@SpringBootApplication
-public class WebApp {
-    public static void main(String[] args) {
-        SpringApplication.run(WebApp.class, args);
+public class MyMsg {
+    private String msg;
+
+    public MyMsg() {
     }
 
-    @Bean
-    @LoadBalanced
-    @SentinelRestTemplate(blockHandler = "handleException", blockHandlerClass = ExceptionUtils.class)
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
+    public MyMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }
