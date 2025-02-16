@@ -45,3 +45,5 @@ spring:
 feign:
   sentinel:
     enabled: true
+  okhttp: # 开启线程池
+    enabled: true
