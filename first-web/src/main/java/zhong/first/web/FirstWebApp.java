@@ -32,13 +32,14 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import zhong.first.web.config.DefaultFeignConfig;
 import zhong.first.web.utils.ExceptionUtils;
 
 /**
  * @author Zhong
  * @since 0.0.1
  */
-@EnableFeignClients("zhong.first.service.api")
+@EnableFeignClients(value = "zhong.first.service.api", defaultConfiguration = DefaultFeignConfig.class)
 @EnableDiscoveryClient
 @SpringBootApplication
 public class FirstWebApp {

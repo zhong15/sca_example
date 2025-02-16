@@ -22,35 +22,18 @@
  * SOFTWARE.
  */
 
-package zhong.first.service;
+package zhong.first.service.config;
 
-import com.alibaba.cloud.sentinel.annotation.SentinelRestTemplate;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import feign.Logger;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
-import zhong.first.service.config.DefaultFeignConfig;
-import zhong.first.service.utils.ExceptionUtils;
 
 /**
  * @author Zhong
  * @since 0.0.1
  */
-@EnableFeignClients(value = "zhong.second.service.api", defaultConfiguration = DefaultFeignConfig.class)
-@EnableDiscoveryClient
-@SpringBootApplication
-public class FirstServiceApp {
-    public static void main(String[] args) {
-        SpringApplication.run(FirstServiceApp.class, args);
-    }
-
+public class DefaultFeignConfig {
     @Bean
-    @LoadBalanced
-    @SentinelRestTemplate(blockHandler = "handleException", blockHandlerClass = ExceptionUtils.class)
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
+    public Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL;
     }
 }
